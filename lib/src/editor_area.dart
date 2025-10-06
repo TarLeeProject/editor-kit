@@ -23,7 +23,10 @@ class _EditorAreaState extends State<EditorArea> {
   Widget build(BuildContext context) {
     return DragTarget<EditorItem>(
       onAcceptWithDetails: (details) {
-        _items.value.add(details.data);
+        final data = details.data;
+        final newList = List<EditorItem>.from(_items.value)
+          ..add(EditorItem.relocated(data, offset: details.offset));
+        _items.value = newList;
       },
       builder: (context, candidates, rejects) {
         return ValueListenableBuilder(

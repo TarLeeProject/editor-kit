@@ -4,7 +4,16 @@ import 'package:flutter/material.dart';
 
 class EditorItem extends StatefulWidget {
   final Widget widget;
-  const EditorItem({super.key, required this.widget});
+  const EditorItem({
+    super.key,
+    required this.widget,
+    this.initialOffset = Offset.zero,
+  });
+
+  factory EditorItem.relocated(EditorItem item, {required Offset offset}) =>
+      EditorItem(widget: item.widget, initialOffset: offset);
+
+  final Offset initialOffset;
 
   @override
   _EditorItemState createState() => _EditorItemState();
@@ -382,8 +391,8 @@ class _EditorItemState extends State<EditorItem> {
           children: [
             pos == null
                 ? Positioned(
-                    top: 0,
-                    left: 0,
+                    top: widget.initialOffset.dy,
+                    left: widget.initialOffset.dx,
                     child: Container(key: _widgetKey, child: widget.widget),
                   )
                 : Positioned(

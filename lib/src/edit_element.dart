@@ -18,7 +18,10 @@ class EditElement extends StatelessWidget {
     return Draggable<EditorItem>(
       data: EditorItem(widget: data),
       feedback: onDragging ?? FittedBox(child: data),
-      childWhenDragging: Opacity(opacity: 0.4, child: child),
+      childWhenDragging: Opacity(
+        opacity: 0.4,
+        child: child ?? FittedBox(child: data),
+      ),
       child: child ?? FittedBox(child: data),
     );
   }
